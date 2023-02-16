@@ -18,10 +18,9 @@ class MyApp extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GetX<ValueController>(
-              init: valueController,
-              builder: (ctrl) {
-                return Text('Texto: ${ctrl.textMain}');
+            Obx(
+              () {
+                return Text('Texto: ${valueController.textMain}');
               },
             ),
             Padding(
@@ -30,15 +29,14 @@ class MyApp extends StatelessWidget {
                 controller: textController,
               ),
             ),
-            GetX<ValueController>(
-              init: valueController,
-              builder: (ctrl) {
-                return ctrl.isLoading.value
+            Obx(
+              () {
+                return valueController.isLoading.value
                     ? const CircularProgressIndicator()
                     : ElevatedButton(
                         onPressed: () {
                           String value = textController.text;
-                          ctrl.setValue(value);
+                          valueController.setValue(value);
                         },
                         child: const Text('Confirmar'),
                       );
