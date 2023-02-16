@@ -21,11 +21,14 @@ class MyApp extends StatelessWidget {
             GetBuilder<ValueController>(
               init: valueController,
               builder: (ctrl) {
-                return Text(ctrl.textMain);
+                return Text('Texto: ${ctrl.textMain}');
               },
             ),
-            TextField(
-              controller: textController,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32),
+              child: TextField(
+                controller: textController,
+              ),
             ),
             GetBuilder<ValueController>(
               init: valueController,
