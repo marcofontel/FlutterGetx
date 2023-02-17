@@ -4,15 +4,19 @@ import 'package:get/get.dart';
 class UserController extends GetxController {
   Rx<UserModel> user = UserModel().obs;
 
-  Future<void> setUserName(String userName) async {
-    user.update((val) {
-      val?.name = userName;
-    });
+  void setUserName(String userName) {
+    // user.update((val) {
+    //   val?.name = userName;
+    // });
+    user.value.name = userName;
+    user.refresh();
+  }
 
-    Future<void> setUserAge(int userAge) async {
-      user.update((val) {
-        val?.age = userAge;
-      });
-    }
+  void setUserAge(int userAge) {
+    // user.update((val) {
+    //   val?.age = userAge;
+    // });
+    user.value.age = userAge;
+    user.refresh();
   }
 }
