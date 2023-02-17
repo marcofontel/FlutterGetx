@@ -4,17 +4,33 @@ import 'package:fluttergetx/value_controller.dart';
 import 'package:get/get.dart';
 
 void main() {
-  runApp(MyApp());
+  Get.put<UserController>(UserController());
+
+  runApp(const MaterialApp(
+    title: 'Your title',
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return GetXPrincipal();
+  }
+}
+
+class GetXPrincipal extends StatelessWidget {
   var nameController = TextEditingController();
   var ageController = TextEditingController();
 
   var valueController = ValueController();
-  final userController = UserController();
+
+  final UserController userController = Get.find();
+
+  GetXPrincipal({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -80,11 +96,41 @@ class MyApp extends StatelessWidget {
                   ),
                 ],
               ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Teste();
+                        },
+                      ),
+                    );
+                  },
+                  child: const Text('Listar dados'))
             ],
           ),
         ),
       ),
-      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class Teste extends StatelessWidget {
+  Teste({super.key});
+  final UserController userController = Get.find();
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(56),
+          child: Column(
+            children: [
+              Obx(() => Text('Nome: ${userController.user.value.name}')),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
