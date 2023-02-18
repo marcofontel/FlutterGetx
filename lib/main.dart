@@ -17,7 +17,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetXPrincipal();
+    return MaterialApp(
+      home: GetXPrincipal(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
 
@@ -41,14 +44,14 @@ class GetXPrincipal extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Obx(
-                () {
-                  return Text('Nome: ${userController.user.value.name}');
+              GetX<UserController>(
+                builder: (controller) {
+                  return Text('Nome: ${controller.user.value.name}');
                 },
               ),
-              Obx(
-                () {
-                  return Text('Idade: ${userController.user.value.age}');
+              GetX<UserController>(
+                builder: (controller) {
+                  return Text('Idade: ${controller.user.value.age}');
                 },
               ),
               const Divider(
@@ -126,7 +129,9 @@ class Teste extends StatelessWidget {
           padding: const EdgeInsets.all(56),
           child: Column(
             children: [
-              Obx(() => Text('Nome: ${userController.user.value.name}')),
+              Obx(
+                () => Text('Nome: ${userController.user.value.name}'),
+              ),
             ],
           ),
         ),
