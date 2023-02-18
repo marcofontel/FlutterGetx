@@ -4,7 +4,7 @@ import 'package:fluttergetx/value_controller.dart';
 import 'package:get/get.dart';
 
 void main() {
-  Get.put<UserController>(UserController());
+  Get.lazyPut<UserController>(() => UserController());
 
   runApp(const MaterialApp(
     title: 'Your title',
