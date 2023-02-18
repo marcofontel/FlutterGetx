@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       home: GetXPrincipal(),
       debugShowCheckedModeBanner: false,
     );
@@ -101,13 +101,14 @@ class GetXPrincipal extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return Teste();
-                        },
-                      ),
-                    );
+                    Get.to(const Teste());
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return const Teste();
+                    //     },
+                    //   ),
+                    // );
                   },
                   child: const Text('Listar dados'))
             ],
@@ -119,19 +120,30 @@ class GetXPrincipal extends StatelessWidget {
 }
 
 class Teste extends StatelessWidget {
-  Teste({super.key});
-  final UserController userController = Get.find();
+  const Teste({super.key});
+  // final UserController userController = Get.find();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(56),
+          padding: const EdgeInsets.all(16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Obx(
-                () => Text('Nome: ${userController.user.value.name}'),
+              GetX<UserController>(
+                builder: (controller) {
+                  return Expanded(
+                    child: Center(
+                        child: Text('Nome: ${controller.user.value.name}')),
+                  );
+                },
               ),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: const Text('Outra tela'))
             ],
           ),
         ),
