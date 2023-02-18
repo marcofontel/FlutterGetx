@@ -100,8 +100,9 @@ class GetXPrincipal extends StatelessWidget {
                 ],
               ),
               ElevatedButton(
-                  onPressed: () {
-                    Get.to(const Teste());
+                  onPressed: () async {
+                    final nome = await Get.to(() => Teste());
+                    userController.setUserName(nome);
                     // Navigator.of(context).push(
                     //   MaterialPageRoute(
                     //     builder: (context) {
@@ -120,8 +121,9 @@ class GetXPrincipal extends StatelessWidget {
 }
 
 class Teste extends StatelessWidget {
-  const Teste({super.key});
+  Teste({super.key});
   // final UserController userController = Get.find();
+  var textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -133,17 +135,30 @@ class Teste extends StatelessWidget {
             children: [
               GetX<UserController>(
                 builder: (controller) {
-                  return Expanded(
-                    child: Center(
-                        child: Text('Nome: ${controller.user.value.name}')),
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Center(
+                          child: Text(
+                            'Nome: ${controller.user.value.name}',
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
+              Expanded(
+                child: TextField(
+                  controller: textController,
+                ),
+              ),
               ElevatedButton(
                   onPressed: () {
-                    Get.back();
+                    Get.back(result: textController.text);
                   },
-                  child: const Text('Outra tela'))
+                  child: const Text('Retornar'))
             ],
           ),
         ),
